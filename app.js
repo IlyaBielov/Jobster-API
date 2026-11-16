@@ -36,9 +36,11 @@ app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000, // вікно 15 хвилин
-    max: 100, // до 100 запитів з IP за вікно (у express-rate-limit 7 — limit)
+    // загальний захист від флуду; фронт шле GET /jobs на кожен символ пошуку — 100 замало
+    max: 1000, // запитів з IP за вікно (у express-rate-limit 7 — limit)
+    message: { msg: 'Too many requests from this IP, please try again after 15 minutes' }, // об'єкт — фронт читає data.msg
   })
-); // першим — відсікаємо зайві запити ще до парсингу JSON
+); // першим — відсікаємо зайві запити ще до парсингу JSON; суворий ліміт на login/register — у routes/auth.js
 app.use(express.json());
 app.use(helmet()); // до роутів — заголовки отримує кожна відповідь, навіть 404
 app.use(cors()); // без опцій — origin '*'; у проді краще cors({ origin: 'https://...' })
