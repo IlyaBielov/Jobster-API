@@ -1,0 +1,677 @@
+[
+  {
+    "company": "Zulauf LLC",
+    "position": "Network Engineer",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-30T07:14:27Z"
+  },
+  {
+    "company": "Gutkowski-Koepp",
+    "position": "Full Stack Developer",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-06T15:23:12Z"
+  },
+  {
+    "company": "Rath Group",
+    "position": "Software Engineer I",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-24T10:31:19Z"
+  },
+  {
+    "company": "Wehner LLC",
+    "position": "Data Engineer",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Lisbon",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-11-03T02:40:34Z"
+  },
+  {
+    "company": "Ledner-Rempel",
+    "position": "Internal Auditor",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Berlin",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-26T22:21:18Z"
+  },
+  {
+    "company": "Huel LLC",
+    "position": "UX Designer",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Vienna",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-03T16:55:30Z"
+  },
+  {
+    "company": "Koepp Inc",
+    "position": "Data Engineer",
+    "status": "declined",
+    "jobType": "internship",
+    "jobLocation": "Toronto",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-01-18T19:34:33Z"
+  },
+  {
+    "company": "Huel Group",
+    "position": "Product Manager",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-10-24T23:30:18Z"
+  },
+  {
+    "company": "Larkin Group",
+    "position": "Security Analyst",
+    "status": "declined",
+    "jobType": "full-time",
+    "jobLocation": "London",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-01T18:21:57Z"
+  },
+  {
+    "company": "Wehner-Halvorson",
+    "position": "Marketing Assistant",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-02-22T16:53:46Z"
+  },
+  {
+    "company": "Okuneva Group",
+    "position": "Internal Auditor",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-04-04T11:42:14Z"
+  },
+  {
+    "company": "Okuneva Inc",
+    "position": "Data Analyst",
+    "status": "declined",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-09T09:17:35Z"
+  },
+  {
+    "company": "Lind-Okuneva",
+    "position": "Data Engineer",
+    "status": "interview",
+    "jobType": "part-time",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-04T10:43:07Z"
+  },
+  {
+    "company": "Hettinger, Okuneva and Rath",
+    "position": "Technical Writer",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Prague",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-03-12T06:08:11Z"
+  },
+  {
+    "company": "Dibbert Inc",
+    "position": "Software Engineer I",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "Prague",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-27T08:58:23Z"
+  },
+  {
+    "company": "Wiza-Stokes",
+    "position": "Systems Administrator III",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Vienna",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-30T10:26:24Z"
+  },
+  {
+    "company": "Bauch-Halvorson",
+    "position": "Marketing Assistant",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-27T19:14:42Z"
+  },
+  {
+    "company": "Feest-Bauch",
+    "position": "Account Executive",
+    "status": "interview",
+    "jobType": "full-time",
+    "jobLocation": "New York",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-10-24T10:32:43Z"
+  },
+  {
+    "company": "Mraz, Bauch and Mraz",
+    "position": "Backend Developer",
+    "status": "interview",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-01-02T16:54:57Z"
+  },
+  {
+    "company": "Rempel Inc",
+    "position": "Backend Developer",
+    "status": "pending",
+    "jobType": "part-time",
+    "jobLocation": "Dnipro",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-05T13:34:07Z"
+  },
+  {
+    "company": "Gutkowski Group",
+    "position": "Project Manager",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "Vienna",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-02-23T11:42:57Z"
+  },
+  {
+    "company": "Bergstrom Inc",
+    "position": "Technical Writer",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-07T23:07:31Z"
+  },
+  {
+    "company": "Rath, Gutkowski and Bergstrom",
+    "position": "DevOps Engineer",
+    "status": "interview",
+    "jobType": "full-time",
+    "jobLocation": "London",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2025-12-04T06:11:09Z"
+  },
+  {
+    "company": "Torphy-Bergstrom",
+    "position": "Mobile Developer",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Warsaw",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-11T09:24:14Z"
+  },
+  {
+    "company": "Torphy, Stokes and Okuneva",
+    "position": "QA Engineer",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Lisbon",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-10-17T04:20:21Z"
+  },
+  {
+    "company": "Halvorson-Brekke",
+    "position": "UX Designer",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Toronto",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-15T05:58:11Z"
+  },
+  {
+    "company": "Gutkowski Inc",
+    "position": "Data Analyst",
+    "status": "declined",
+    "jobType": "internship",
+    "jobLocation": "Kyiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-15T12:44:48Z"
+  },
+  {
+    "company": "Hoppe, Stokes and Rempel",
+    "position": "Technical Writer",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-16T19:18:57Z"
+  },
+  {
+    "company": "Bergstrom-Huel",
+    "position": "Frontend Developer",
+    "status": "pending",
+    "jobType": "part-time",
+    "jobLocation": "Lviv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-01-27T03:23:45Z"
+  },
+  {
+    "company": "Bergstrom-Huel",
+    "position": "Software Engineer III",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-19T14:06:07Z"
+  },
+  {
+    "company": "Stokes Group",
+    "position": "Data Analyst",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "London",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-22T00:35:47Z"
+  },
+  {
+    "company": "Gutkowski-Gutkowski",
+    "position": "DevOps Engineer",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-19T03:45:58Z"
+  },
+  {
+    "company": "Halvorson Group",
+    "position": "Full Stack Developer",
+    "status": "declined",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-10T14:06:33Z"
+  },
+  {
+    "company": "Hoppe, Bauch and Brekke",
+    "position": "Software Engineer III",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Lviv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-11-06T10:25:35Z"
+  },
+  {
+    "company": "Douglas, Dibbert and Torphy",
+    "position": "Account Executive",
+    "status": "interview",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2025-12-24T03:49:08Z"
+  },
+  {
+    "company": "Ledner Group",
+    "position": "Frontend Developer",
+    "status": "declined",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-01-31T09:20:35Z"
+  },
+  {
+    "company": "Okuneva LLC",
+    "position": "Backend Developer",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Krakow",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-01-07T06:49:57Z"
+  },
+  {
+    "company": "Wiza, Gutkowski and Hoppe",
+    "position": "Recruiting Manager",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-19T18:37:27Z"
+  },
+  {
+    "company": "Zulauf-Larkin",
+    "position": "Help Desk Operator",
+    "status": "interview",
+    "jobType": "part-time",
+    "jobLocation": "Vienna",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-01T03:01:07Z"
+  },
+  {
+    "company": "Larkin Inc",
+    "position": "Internal Auditor",
+    "status": "declined",
+    "jobType": "internship",
+    "jobLocation": "New York",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2025-12-14T19:53:35Z"
+  },
+  {
+    "company": "Halvorson, Zulauf and Rath",
+    "position": "Business Analyst",
+    "status": "declined",
+    "jobType": "full-time",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-15T12:11:12Z"
+  },
+  {
+    "company": "Larkin-Dibbert",
+    "position": "UI Designer",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-10-16T02:31:05Z"
+  },
+  {
+    "company": "Kertzmann-Bergstrom",
+    "position": "Help Desk Operator",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "London",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-04-18T12:03:25Z"
+  },
+  {
+    "company": "Douglas-Feest",
+    "position": "Account Executive",
+    "status": "interview",
+    "jobType": "part-time",
+    "jobLocation": "Warsaw",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-03-19T11:55:13Z"
+  },
+  {
+    "company": "Gutkowski Group",
+    "position": "Database Administrator",
+    "status": "interview",
+    "jobType": "part-time",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-25T20:10:10Z"
+  },
+  {
+    "company": "Wehner-Wehner",
+    "position": "Backend Developer",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-02-26T20:47:13Z"
+  },
+  {
+    "company": "Kemmer Group",
+    "position": "Recruiting Manager",
+    "status": "declined",
+    "jobType": "internship",
+    "jobLocation": "Warsaw",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-26T08:54:55Z"
+  },
+  {
+    "company": "Stokes Group",
+    "position": "Software Engineer III",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "Prague",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2025-12-06T23:04:15Z"
+  },
+  {
+    "company": "Bergstrom-Wiza",
+    "position": "Recruiting Manager",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "New York",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-03-29T17:37:06Z"
+  },
+  {
+    "company": "Ledner, Ledner and Bauch",
+    "position": "Software Engineer III",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-10T01:37:05Z"
+  },
+  {
+    "company": "Douglas LLC",
+    "position": "Frontend Developer",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Warsaw",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-09T08:54:12Z"
+  },
+  {
+    "company": "Rempel Inc",
+    "position": "Marketing Assistant",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "Berlin",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-10-07T01:43:12Z"
+  },
+  {
+    "company": "Douglas-Douglas",
+    "position": "Data Analyst",
+    "status": "interview",
+    "jobType": "full-time",
+    "jobLocation": "Lisbon",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-14T19:49:03Z"
+  },
+  {
+    "company": "Veum Inc",
+    "position": "Recruiting Manager",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Warsaw",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-10-29T12:52:20Z"
+  },
+  {
+    "company": "Brekke Group",
+    "position": "Systems Administrator III",
+    "status": "declined",
+    "jobType": "internship",
+    "jobLocation": "Krakow",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2025-12-04T13:00:00Z"
+  },
+  {
+    "company": "Kemmer, Stokes and Lind",
+    "position": "Recruiting Manager",
+    "status": "interview",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-04-25T04:41:27Z"
+  },
+  {
+    "company": "Wehner Inc",
+    "position": "Software Engineer I",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-11-02T09:11:15Z"
+  },
+  {
+    "company": "Halvorson, Ledner and Douglas",
+    "position": "Marketing Assistant",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "New York",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-27T02:38:38Z"
+  },
+  {
+    "company": "Ledner Group",
+    "position": "Software Engineer I",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-11-14T09:53:20Z"
+  },
+  {
+    "company": "Zulauf-Veum",
+    "position": "QA Engineer",
+    "status": "pending",
+    "jobType": "part-time",
+    "jobLocation": "London",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-18T16:27:33Z"
+  },
+  {
+    "company": "Bergstrom LLC",
+    "position": "Web Developer II",
+    "status": "pending",
+    "jobType": "part-time",
+    "jobLocation": "Dnipro",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-01T01:52:02Z"
+  },
+  {
+    "company": "Kertzmann Inc",
+    "position": "Network Engineer",
+    "status": "declined",
+    "jobType": "part-time",
+    "jobLocation": "Krakow",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-02T07:45:24Z"
+  },
+  {
+    "company": "Koepp Group",
+    "position": "Systems Administrator III",
+    "status": "interview",
+    "jobType": "internship",
+    "jobLocation": "Krakow",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-05-01T23:48:54Z"
+  },
+  {
+    "company": "Ledner-Wehner",
+    "position": "Backend Developer",
+    "status": "interview",
+    "jobType": "full-time",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-22T06:16:24Z"
+  },
+  {
+    "company": "Kertzmann Group",
+    "position": "Database Administrator",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Krakow",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-21T16:02:52Z"
+  },
+  {
+    "company": "Zulauf Group",
+    "position": "Data Engineer",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "Prague",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-14T08:04:19Z"
+  },
+  {
+    "company": "Lind Inc",
+    "position": "Data Engineer",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-03-07T08:22:11Z"
+  },
+  {
+    "company": "Kuhn Group",
+    "position": "Marketing Assistant",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Kharkiv",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-06-09T02:38:38Z"
+  },
+  {
+    "company": "Bergstrom LLC",
+    "position": "Network Engineer",
+    "status": "pending",
+    "jobType": "full-time",
+    "jobLocation": "Lisbon",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-04T23:44:27Z"
+  },
+  {
+    "company": "Halvorson-Zulauf",
+    "position": "Support Engineer",
+    "status": "declined",
+    "jobType": "full-time",
+    "jobLocation": "Toronto",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-30T22:38:58Z"
+  },
+  {
+    "company": "Zulauf Group",
+    "position": "Technical Writer",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-08-22T23:50:45Z"
+  },
+  {
+    "company": "Mraz Inc",
+    "position": "Systems Administrator III",
+    "status": "declined",
+    "jobType": "internship",
+    "jobLocation": "Amsterdam",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-07-17T00:58:59Z"
+  },
+  {
+    "company": "Veum Inc",
+    "position": "Mobile Developer",
+    "status": "pending",
+    "jobType": "internship",
+    "jobLocation": "London",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-02-05T07:21:18Z"
+  },
+  {
+    "company": "Kertzmann Group",
+    "position": "Project Manager",
+    "status": "pending",
+    "jobType": "remote",
+    "jobLocation": "remote",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-01-02T08:21:53Z"
+  },
+  {
+    "company": "Douglas Inc",
+    "position": "Business Analyst",
+    "status": "interview",
+    "jobType": "part-time",
+    "jobLocation": "Odesa",
+    "createdBy": "6afaff63605bae2dd1028b0e",
+    "createdAt": "2026-09-24T17:48:35Z"
+  }
+]
