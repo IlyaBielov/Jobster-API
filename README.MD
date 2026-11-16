@@ -4,8 +4,8 @@ Job application tracker: a REST API plus the prebuilt React front-end (Jobster) 
 Users register / log in with JWT, manage only their own jobs, search / filter / sort / paginate them,
 and see stats by status and by month. Built while following the "Jobster API" section of a Node.js / Express course.
 
-- **Live:** _add the Render URL after the first deploy_
-- **Docs (Swagger UI):** _Render URL_ + `/api-docs`
+- **Live:** https://jobster-api-p596.onrender.com
+- **Docs (Swagger UI):** https://jobster-api-p596.onrender.com/api-docs
 - **Demo:** click **Demo App** on the register page (`testUser@test.com` / `secret`) — read-only
 
 > Hosted on Render's free tier — the first request after ~15 min of inactivity can take 30–60 s.
@@ -94,6 +94,8 @@ mock-data.json, populate.js   # sample jobs for the demo user
 ```
 
 ## Deployment ([Render](https://render.com))
+
+Live: https://jobster-api-p596.onrender.com · Docs: https://jobster-api-p596.onrender.com/api-docs
 
 - Build command: `npm install`, start command: `npm start`
 - Environment: `MONGO_URI`, `JWT_SECRET`, `JWT_LIFETIME` (`PORT` is set by Render)
