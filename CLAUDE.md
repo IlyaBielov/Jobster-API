@@ -36,7 +36,7 @@ There is no lint or test setup in this starter.
 
 ## Version differences vs the course
 
-Bumped: `mongoose` 9.7.2, `jsonwebtoken` 9, `dotenv` 16, `express` 4.21, `nodemon` 3. `db/connect.js` already simplified to `mongoose.connect(url)` (old options throw in v6+).
+Bumped: `mongoose` 9.12.1 (pinned exact; 9.7.2 had security advisories, fixed below 9.11.4), `jsonwebtoken` 9, `dotenv` 16, `express` 4.21, `nodemon` 3. `db/connect.js` already simplified to `mongoose.connect(url)` (old options throw in v6+).
 
 Mongoose 9 vs the course's v5:
 - `pre('save', async function () {...})` — no `next` parameter, don't call `next()`.
