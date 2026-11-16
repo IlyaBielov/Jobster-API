@@ -7,7 +7,16 @@ const register = async (req, res, next) => {
   const user = await User.create({ ...req.body }); // валідація схеми + pre('save') хешує пароль
 
   const token = user.createJWT() // логіка токена живе в моделі — контролер тонкий
-  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token }); // 201; без пароля — лише name і token; frontend читає user.name
+  // 201; token усередині user — фронт кладе весь user у localStorage, а axios бере user.token
+  res.status(StatusCodes.CREATED).json({
+    user: {
+      email: user.email,
+      lastName: user.lastName,
+      location: user.location,
+      name: user.name,
+      token,
+    },
+  });
 }
 
 const login = async (req, res, next) => {
@@ -29,7 +38,16 @@ const login = async (req, res, next) => {
   }
 
   const token = user.createJWT() // новий токен при кожному логіні — exp знову JWT_LIFETIME
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token }); // та сама форма, що й у register
+  // та сама форма, що й у register; пароль (навіть хеш) у відповідь не йде
+  res.status(StatusCodes.OK).json({
+    user: {
+      email: user.email,
+      lastName: user.lastName,
+      location: user.location,
+      name: user.name,
+      token,
+    },
+  });
 }
 
 
