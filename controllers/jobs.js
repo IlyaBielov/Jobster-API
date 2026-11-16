@@ -22,7 +22,7 @@ const getJob = async (req, res, next) => {
 const createJob = async (req, res, next) => {
   req.body.createdBy = req.user.userId // власника беремо з токена, а не з тіла запиту
   const job = await Job.create(req.body) // валідація схеми; невідомі поля strict-режим відкине
-  res.status(StatusCodes.CREATED).send(job)
+  res.status(StatusCodes.CREATED).json({ job }) // { job } — та сама форма, що в getJob/updateJob
 }
 
 const updateJob = async (req, res, next) => {
