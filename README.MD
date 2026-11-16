@@ -1,681 +1,113 @@
 # Jobster API
 
-#### Starter
+Job application tracker: a REST API plus the prebuilt React front-end (Jobster) served from the same Express app.
+Users register / log in with JWT, manage only their own jobs, search / filter / sort / paginate them,
+and see stats by status and by month. Built while following the "Jobster API" section of a Node.js / Express course.
 
-The starter is a copy of jobs-api final project, just with additional data.
+- **Live:** _add the Render URL after the first deploy_
+- **Docs (Swagger UI):** _Render URL_ + `/api-docs`
+- **Demo:** click **Demo App** on the register page (`testUser@test.com` / `secret`) — read-only
 
-#### Setup
+> Hosted on Render's free tier — the first request after ~15 min of inactivity can take 30–60 s.
 
-- navigate to 06.5-jobster-api/starter
-- install dependencies
+## Tech stack
 
-```sh
+Node.js 22 · Express 4 · MongoDB Atlas + Mongoose 9 · JWT (jsonwebtoken 9) · bcryptjs · moment ·
+helmet · cors · xss-clean · express-rate-limit · swagger-ui-express + yamljs · React (prebuilt in `client/build`)
+
+## Getting started
+
+```bash
 npm install
+npm run dev   # nodemon, auto-reload
+npm start     # plain node (used in production)
 ```
 
-- create .env and provide correct values
-- you can copy from previous project (just change the DB name)
+Create `.env` in the project root:
 
-.env
-
-```js
-MONGO_URI=
-JWT_SECRET=
-JWT_LIFETIME=
+```env
+PORT=5000
+MONGO_URI=<MongoDB Atlas connection string>
+JWT_SECRET=<long random string>
+JWT_LIFETIME=30d
 ```
 
-- start the project
+Then open http://localhost:5000 (front-end) or http://localhost:5000/api-docs (API docs).
 
-```sh
-npm start
-```
+Optional: register the demo user, set its `_id` as `createdBy` in `mock-data.json`, and run `node populate.js` once
+to load 75 sample jobs (running it again adds them again).
 
-- you should see "Server is listening ...." text
+## API
 
-#### Spring Cleaning
+Base URL: `/api/v1`. `/jobs` routes and `PATCH /auth/updateUser` require `Authorization: Bearer <token>`.
 
-##### Remove Swagger
+| Method | Route              | Description                                                                    |
+|--------|--------------------|--------------------------------------------------------------------------------|
+| POST   | `/auth/register`   | Register — `{ user: { email, name, lastName, location, token } }`              |
+| POST   | `/auth/login`      | Login — same shape as register                                                 |
+| PATCH  | `/auth/updateUser` | Update `email`, `name`, `lastName`, `location` — returns the user + new token  |
+| GET    | `/jobs`            | Jobs of the current user — `{ jobs, totalJobs, numOfPages }`                   |
+| POST   | `/jobs`            | Create job — `{ job }`                                                         |
+| GET    | `/jobs/stats`      | `{ defaultStats: { pending, interview, declined }, monthlyApplications }`      |
+| GET    | `/jobs/:id`        | Single job — `{ job }`                                                         |
+| PATCH  | `/jobs/:id`        | Update job (partial) — `{ job }`                                               |
+| DELETE | `/jobs/:id`        | Delete job                                                                     |
 
-- delete swagger.yaml file
-- remove these lines of code
-- delete swagger.yaml
-  app.js
+`GET /jobs` query parameters (all optional):
 
-```js
-const swaggerUI = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
+| Param     | Values                                               |
+|-----------|------------------------------------------------------|
+| `search`  | substring of `position`, case-insensitive            |
+| `status`  | `all`, `interview`, `declined`, `pending`            |
+| `jobType` | `all`, `full-time`, `part-time`, `remote`, `internship` |
+| `sort`    | `latest`, `oldest`, `a-z`, `z-a`                     |
+| `page`    | default `1`                                          |
+| `limit`   | default `10`                                         |
 
-app.get('/', (req, res) => {
-  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
-});
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-```
+Errors always come back as `{ msg }`:
 
-#### Remove API Limiter
+| Case                                                   | Status |
+|--------------------------------------------------------|--------|
+| Mongoose validation error, duplicate email (11000)     | 400    |
+| Demo user tries to create / update / delete            | 400    |
+| Missing / invalid token, wrong credentials             | 401    |
+| Job not found, or invalid id (CastError)               | 404    |
+| Rate limit: 10 login/register or 1000 requests / 15 min per IP | 429 |
 
-- remove these lines of code
-
-app.js
-
-```js
-const rateLimiter = require('express-rate-limit');
-
-app.set('trust proxy', 1);
-app.use(
-  rateLimiter({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-  })
-);
-```
-
-#### Remove CORS
-
-- we don't want external JS apps to access our API (only our front-end)
-- remove these lines of code
-
-```js
-const cors = require('cors');
-app.use(cors());
-```
-
-#### Package.json
-
-- add "dev" script with nodemon
-- change engines to current version (in my case 16)
-
-package.json
-
-```js
-
-"scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-
-"engines": {
-    "node": "16.x"
-  }
-```
-
-- restart server with "npm run dev"
-
-##### Client Folder
-
-- let's explore client folder
-- open client folder
-- it's a react app built with CRA
-- it's the same as in my React Course (JOBSTER APP),
-  just base url points to our current server (instead of heroku app)
-
-utils/axios.js
-
-```js
-const customFetch = axios.create({
-  baseURL: '/api/v1',
-});
-```
-
-- notice the build folder (production ready application)
-- in CRA we can create build folder by running "npm run build"
-- that's the one we will use for our front-end
-
-##### Setup Front-End
-
-- require "path" module
-- setup express static (as first middleware)
-  to serve static assets from client/build
-- so now instead of public folder we are using client/build
-
-app.js
-
-```js
-const path = require('path');
-
-app.use(express.static(path.resolve(__dirname, './client/build')));
-
-// place as first middleware
-app.use(express.json());
-app.use(helmet());
-app.use(cors());
-app.use(xss());
-```
-
-- serve index.html for all routes (apart from API)
-- front-end routes pick's it up from there
-
-```js
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/jobs', authenticateUser, jobsRouter);
-
-// serve index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
-});
-
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
-```
-
-- navigate to localhost:5000
-- clear local storage (if necessary)
-
-#### Modify User Model
-
-- add following properties
-
-models/User.js
-
-```js
-lastName: {
-    type: String,
-    trim: true,
-    maxlength: 20,
-    default: 'lastName',
-  },
-  location: {
-    type: String,
-    trim: true,
-    maxlength: 20,
-    default: 'my city',
-  },
+## Project structure
 
 ```
-
-#### Modify Response in Register and Login
-
-- change the response structure in
-  register and login controllers (just keep old StatusCodes)
-
-controllers/auth.js
-
-```js
-res.status(StatusCodes.CREATED).json({
-  user: {
-    email: user.email,
-    lastName: user.lastName,
-    location: user.location,
-    name: user.name,
-    token,
-  },
-});
+app.js                        # middleware, Swagger, API routes, serves client/build + index.html fallback
+db/connect.js                 # mongoose.connect
+models/User.js                # validation, lastName/location, pre('save') hashing (only if modified)
+models/Job.js                 # company, position, status, jobType, jobLocation, createdBy -> User
+controllers/auth.js           # register, login, updateUser
+controllers/jobs.js           # CRUD, search/filter/sort/pagination, stats (aggregation pipelines)
+middleware/authentication.js  # verifies Bearer token, sets req.user (+ testUser flag)
+middleware/testUser.js        # blocks writes for the demo user
+middleware/error-handler.js   # maps Mongoose/Mongo errors to status codes
+routes/                       # auth (with login/register rate limiter), jobs
+errors/                       # CustomAPIError + BadRequest / Unauthenticated / NotFound
+client/build/                 # prebuilt React front-end (committed — Render doesn't build it)
+swagger.yaml                  # OpenAPI 3.0 spec served at /api-docs
+mock-data.json, populate.js   # sample jobs for the demo user
 ```
 
-- Login and Register Works Now :):):)
-
-#### Create Test User
-
-- test front-end request
-- in postman or front-end
-- make sure email and password are the same (or change the front-end)
-
-```js
-{
-    "name":"demo user",
-    "email":"testUser@test.com",
-    "password":"secret"
-}
-```
-
-- navigate to client/src/pages/Register.js
-- make sure email and password match your test user
-
-```js
-<button
-  type='button'
-  className='btn btn-block btn-hipster'
-  disabled={isLoading}
-  onClick={() =>
-  dispatch(loginUser({ email: 'testUser@test.com', password: 'secret' }))}>
-
-```
-
-#### Update User Functionality
-
-- import authenticateUser middleware
-- setup updateUser route (protected route)
-
-routes/auth.js
-
-```js
-const express = require('express');
-const router = express.Router();
-const authenticateUser = require('../middleware/authentication');
-const { register, login, updateUser } = require('../controllers/auth');
-router.post('/register', register);
-router.post('/login', login);
-router.patch('/updateUser', authenticateUser, updateUser);
-
-module.exports = router;
-```
-
-- create updateUser controller
-- setup export
-
-controllers/auth.js
-
-```js
-const updateUser = async (req, res) => {
-  console.log(req.user);
-  console.log(req.body);
-};
-```
-
-- complete updateUser
-
-controllers/auth.js
-
-```js
-const updateUser = async (req, res) => {
-  const { email, name, lastName, location } = req.body;
-  if (!email || !name || !lastName || !location) {
-    throw new BadRequestError('Please provide all values');
-  }
-  const user = await User.findOne({ _id: req.user.userId });
-
-  user.email = email;
-  user.name = name;
-  user.lastName = lastName;
-  user.location = location;
-
-  await user.save();
-
-  const token = user.createJWT();
-
-  res.status(StatusCodes.OK).json({
-    user: {
-      email: user.email,
-      lastName: user.lastName,
-      location: user.location,
-      name: user.name,
-      token,
-    },
-  });
-};
-```
-
-- Why New Token?
-
-#### GOTCHA
-
-- this.modifiedPaths();
-
-```js
-UserSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-});
-```
-
-#### Modify Job Model
-
-- add following properties
-
-models/Job.js
-
-```js
-jobType: {
-      type: String,
-      enum: ['full-time', 'part-time', 'remote', 'internship'],
-      default: 'full-time',
-    },
-    jobLocation: {
-      type: String,
-      default: 'my city',
-      required: true,
-    },
-```
-
-- default property just for fun, values will be provided by front-end
-
-#### Setup Mock Data
-
-- [Mockaroo](https://www.mockaroo.com/)
-- create mock-data.json (root)
-- provide test user id
-
-#### Populate DB
-
-- create populate.js
-
-populate.js
-
-```js
-require('dotenv').config();
-
-const mockData = require('./mock-data.json');
-
-const Job = require('./models/Job');
-const connectDB = require('./db/connect');
-
-const start = async () => {
-  try {
-    await connectDB(process.env.MONGO_URI);
-
-    await Job.create(mockData);
-    console.log('Success!!!');
-    process.exit(0);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-#### Modify Get All Jobs
-
-- latest mongoose version change
-
-controllers/jobs.js
-
-```js
-const getAllJobs = async (req, res) => {
-  const { search, status, jobType, sort } = req.query;
-
-  // protected route
-  const queryObject = {
-    createdBy: req.user.userId,
-  };
-
-  if (search) {
-    queryObject.position = { $regex: search, $options: 'i' };
-  }
-  // add stuff based on condition
-
-  if (status && status !== 'all') {
-    queryObject.status = status;
-  }
-  if (jobType && jobType !== 'all') {
-    queryObject.jobType = jobType;
-  }
-
-  // NO AWAIT
-
-  let result = Job.find(queryObject);
-
-  // chain sort conditions
-
-  if (sort === 'latest') {
-    result = result.sort('-createdAt');
-  }
-  if (sort === 'oldest') {
-    result = result.sort('createdAt');
-  }
-  if (sort === 'a-z') {
-    result = result.sort('position');
-  }
-  if (sort === 'z-a') {
-    result = result.sort('-position');
-  }
-
-  //
-
-  // setup pagination
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
-  const skip = (page - 1) * limit;
-
-  result = result.skip(skip).limit(limit);
-
-  const jobs = await result;
-
-  const totalJobs = await Job.countDocuments(queryObject);
-  const numOfPages = Math.ceil(totalJobs / limit);
-
-  res.status(StatusCodes.OK).json({ jobs, totalJobs, numOfPages });
-};
-```
-
-#### Make Test User Read-Only
-
-middleware/authentication.js
-
-```js
-const payload = jwt.verify(token, process.env.JWT_SECRET);
-const testUser = payload.userId === '62eff8bcdb9af70b4155349d';
-req.user = { userId: payload.userId, testUser };
-```
-
-- create testingUser in middleware
-
-middleware/testUser
-
-```js
-const { BadRequestError } = require('../errors');
-
-const testUser = (req, res, next) => {
-  if (req.user.testUser) {
-    throw new BadRequestError('Test User. Read Only!');
-  }
-  next();
-};
-
-module.exports = testUser;
-```
-
-- add to auth routes (updateUser)
-
-```js
-const express = require('express');
-const router = express.Router();
-const authenticateUser = require('../middleware/authentication');
-const testUser = require('../middleware/testUser');
-const { register, login, updateUser } = require('../controllers/auth');
-
-router.post('/register', register);
-router.post('/login', login);
-router.patch('/updateUser', authenticateUser, testUser, updateUser);
-
-module.exports = router;
-```
-
-- add to job routes (createJob, updateJob, deleteJob)
-
-routes/jobs.js
-
-```js
-const express = require('express');
-
-const router = express.Router();
-const {
-  createJob,
-  deleteJob,
-  getAllJobs,
-  updateJob,
-  getJob,
-  showStats,
-} = require('../controllers/jobs');
-const testUser = require('../middleware/testUser');
-
-router.route('/').post(testUser, createJob).get(getAllJobs);
-router.route('/stats').get(showStats);
-router
-  .route('/:id')
-  .get(getJob)
-  .delete(testUser, deleteJob)
-  .patch(testUser, updateJob);
-
-module.exports = router;
-```
-
-#### API Limiter
-
-routes/auth.js
-
-```js
-const express = require('express');
-const router = express.Router();
-const authenticateUser = require('../middleware/authentication');
-const testUser = require('../middleware/testUser');
-const { register, login, updateUser } = require('../controllers/auth');
-
-const rateLimiter = require('express-rate-limit');
-const apiLimiter = rateLimiter({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10,
-  message: {
-    msg: 'Too many requests from this IP, please try again after 15 minutes',
-  },
-});
-
-router.post('/register', apiLimiter, register);
-router.post('/login', apiLimiter, login);
-router.patch('/updateUser', authenticateUser, testUser, updateUser);
-
-module.exports = router;
-```
-
-app.js
-
-```js
-app.set('trust proxy', 1);
-
-app.use(express.static(path.resolve(__dirname, './client/build')));
-```
-
-#### Setup Stats Route
-
-controllers/jobs
-
-```js
-const showStats = (req, res) => {
-  res
-    .status(StatusCodes.OK)
-    .json({ defaultStats: {}, monthlyApplications: [] });
-};
-
-module.exports = {
-  createJob,
-  deleteJob,
-  getAllJobs,
-  updateJob,
-  getJob,
-  showStats,
-};
-```
-
-routes/jobs.js
-
-```js
-const express = require('express');
-
-const router = express.Router();
-const {
-  createJob,
-  deleteJob,
-  getAllJobs,
-  updateJob,
-  getJob,
-  showStats,
-} = require('../controllers/jobs');
-
-router.route('/').post(createJob).get(getAllJobs);
-router.route('/stats').get(showStats);
-router.route('/:id').get(getJob).delete(deleteJob).patch(updateJob);
-
-module.exports = router;
-```
-
-- npm install moment
-- import mongoose and moment
-
-controllers/jobs
-
-```js
-const mongoose = require('mongoose');
-const moment = require('moment');
-```
-
-- [Javascript Nuggets - Reduce Basics](https://youtu.be/3WkW9nrS2mw)
-- [Javascript Nuggets - Reduce (object example)](https://youtu.be/5BFkp8JjLEY)
-
-controllers/jobs
-
-```js
-const showStats = async (req, res) => {
-  let stats = await Job.aggregate([
-    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-    { $group: { _id: '$status', count: { $sum: 1 } } },
-  ]);
-
-  stats = stats.reduce((acc, curr) => {
-    const { _id: title, count } = curr;
-    acc[title] = count;
-    return acc;
-  }, {});
-
-  const defaultStats = {
-    pending: stats.pending || 0,
-    interview: stats.interview || 0,
-    declined: stats.declined || 0,
-  };
-
-  let monthlyApplications = await Job.aggregate([
-    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-    {
-      $group: {
-        _id: { year: { $year: '$createdAt' }, month: { $month: '$createdAt' } },
-        count: { $sum: 1 },
-      },
-    },
-    { $sort: { '_id.year': -1, '_id.month': -1 } },
-    { $limit: 6 },
-  ]);
-  monthlyApplications = monthlyApplications
-    .map((item) => {
-      const {
-        _id: { year, month },
-        count,
-      } = item;
-      const date = moment()
-        .month(month - 1)
-        .year(year)
-        .format('MMM Y');
-      return { date, count };
-    })
-    .reverse();
-
-  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
-};
-```
-
-#### Deploy
-
-- remove existing git repo
-
-- add reverse() in showStats
-
-controllers/jobs.js
-
-```js
-monthlyApplications = monthlyApplications
-  .map((item) => {
-    const {
-      _id: { year, month },
-      count,
-    } = item;
-    const date = moment()
-      .month(month - 1)
-      .year(year)
-      .format('MMM Y');
-    return { date, count };
-  })
-  .reverse();
-```
-
-- remove Procfile
-- remove engines from package.json
-
-```json
-"engines": {
-    "node": "16.x"
-  }
-```
-
-- fix build folder (remove /build from client/.gitignore)
-- setup new github repo
-- deploy to render
+## Deployment ([Render](https://render.com))
+
+- Build command: `npm install`, start command: `npm start`
+- Environment: `MONGO_URI`, `JWT_SECRET`, `JWT_LIFETIME` (`PORT` is set by Render)
+- MongoDB Atlas → Network Access must allow Render's IPs
+- `app.set('trust proxy', 1)` so the rate limiters see real client IPs behind Render's proxy
+- `engines.node` in `package.json` pins Node 22 on Render
+- Every push to `main` triggers an auto-deploy
+
+## Differences from the course
+
+- Mongoose 9: `pre('save')` without `next`, `{ returnDocument: 'after' }`, `new mongoose.Types.ObjectId(...)`
+  in aggregations (calling it without `new` throws)
+- Kept Swagger, CORS and a global rate limiter (1000 / 15 min) instead of removing them
+- Search escapes regex special characters (`c++`, `(` no longer break the query or return 500)
+- Invalid `page` / `limit` fall back to defaults; `a-z` / `z-a` sort uses `_id` as a tie-breaker so pages don't overlap
+- Demo user is detected by email instead of a hard-coded `_id`, so it survives a fresh database
+- Deployed to Render instead of Heroku; Node 22 instead of 16

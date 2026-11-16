@@ -161,7 +161,7 @@ const showStats = async (req, res) => {
       .year(year)
       .format('MMM Y'); // 'MMM' — коротка назва місяця, 'Y' — рік
     return { date, count };
-  });
+  }).reverse(); // агрегація сортує від нових (щоб $limit узяв останні) — графіку потрібно зліва направо від старих
 
   res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 }
