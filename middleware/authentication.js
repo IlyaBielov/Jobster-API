@@ -24,7 +24,11 @@ const auth = async (req, res, next) => {
     throw new UnauthenticatedError('Invalid credentials');
   }
 
-  req.user = { userId: user._id, name: user.name }; // та сама форма, що й раніше — контролери jobs на неї розраховують
+  // демо-юзер спільний для всіх — позначаємо його, щоб middleware testUser зробив його read-only
+  // за email, а не _id: той самий, що в кнопці Demo (Register.js), і не міняється при новій БД
+  const testUser = user.email === 'testUser@test.com';
+
+  req.user = { userId: user._id, name: user.name, testUser }; // userId і name — як раніше, контролери jobs на них розраховують
   next(); // поза try — інакше помилку з наступних middleware зловив би наш catch
 }
 
