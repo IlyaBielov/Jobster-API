@@ -50,8 +50,41 @@ const login = async (req, res, next) => {
   });
 }
 
+// req.user — від auth middleware, req.body — форма Profile
+const updateUser = async (req, res) => {
+  const { email, name, lastName, location } = req.body;
+  if (!email || !name || !lastName || !location) { // форма Profile завжди шле всі 4 поля
+    throw new BadRequestError('Please provide all values');
+  }
+
+  // userId з токена, а не з body — чужий профіль не оновиш
+  const user = await User.findOne({ _id: req.user.userId });
+
+  // поки лише в пам'яті; Mongoose позначає ці поля як modified, у БД вони підуть на save()
+  user.email = email;
+  user.name = name;
+  user.lastName = lastName;
+  user.location = location;
+
+  // save(), а не findOneAndUpdate — щоб пройшли валідатори схеми й pre('save')
+  await user.save();
+
+  const token = user.createJWT(); // name у payload міг змінитись — видаємо свіжий токен
+  // та сама форма, що й у login — фронт просто замінює user у localStorage
+  res.status(StatusCodes.OK).json({
+    user: {
+      email: user.email,
+      lastName: user.lastName,
+      location: user.location,
+      name: user.name,
+      token,
+    },
+  });
+}
+
 
 module.exports = {
   register,
-  login
+  login,
+  updateUser,
 }

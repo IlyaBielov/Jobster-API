@@ -40,6 +40,7 @@ const UserSchema = new mongoose.Schema({
 
 // Mongoose 9: async-хук без next; function, а не =>, щоб this був документом
 UserSchema.pre('save', async function() {
+  if (!this.isModified('password')) return; // updateUser теж робить save() — без цього хеш захешується вдруге (true для нового документа)
   const salt = await bcrypt.genSalt(10); // 10 раундів — баланс швидкості й стійкості до перебору
   this.password = await bcrypt.hash(this.password, salt); // у БД тільки хеш, не сам пароль
 })
