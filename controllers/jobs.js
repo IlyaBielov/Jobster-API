@@ -1,3 +1,5 @@
+const mongoose = require('mongoose'); // для mongoose.Types.ObjectId в aggregate
+const moment = require('moment'); // { year: 2026, month: 11 } → 'Nov 2026' для осі графіка
 const Job = require('../models/Job');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
@@ -116,10 +118,59 @@ const deleteJob = async (req, res, next) => {
   res.status(StatusCodes.OK).send(); // тіло не потрібне — достатньо статусу
 }
 
+// дані для сторінки Stats: картки за статусом + графік за місяцями
+const showStats = async (req, res) => {
+  // aggregation pipeline: документи проходять етапи по черзі, рахує сама MongoDB
+  let stats = await Job.aggregate([
+    // aggregate НЕ кастить типи за схемою (на відміну від find) — тому ObjectId явно; з new, бо Mongoose 6+
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
+    // один вихідний документ на кожен status; $sum: 1 — +1 за кожну job у групі
+    { $group: { _id: '$status', count: { $sum: 1 } } },
+  ]);
+  // [{ _id: 'pending', count: 32 }, ...] → { pending: 32, ... } — фронт читає stats.pending
+  stats = stats.reduce((acc, curr) => {
+    const { _id: title, count } = curr; // перейменовуємо _id → title для читабельності
+    acc[title] = count;
+    return acc; // reduce передає acc у наступну ітерацію — без return буде undefined
+  }, {}); // {} — стартове значення acc
+
+  // статус без жодної job $group не поверне взагалі — тому дефолт 0 для кожного
+  const defaultStats = {
+    pending: stats.pending || 0,
+    interview: stats.interview || 0,
+    declined: stats.declined || 0,
+  };
+
+  let monthlyApplications = await Job.aggregate([
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
+    // ключ групи — об'єкт: лише місяць злив би Nov 2025 і Nov 2026 в одну групу
+    {
+      $group: {
+        _id: { year: { $year: '$createdAt' }, month: { $month: '$createdAt' } }, // $month: 1–12; дати в UTC
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { '_id.year': -1, '_id.month': -1 } }, // від найновіших — щоб $limit узяв останні
+    { $limit: 6 }, // 6 останніх місяців, у яких були job (порожні місяці $group не створює)
+  ]);
+  // [{ _id: { year, month }, count }] → [{ date: 'Nov 2026', count }] — графік бере поля date і count
+  monthlyApplications = monthlyApplications.map((item) => {
+    const { _id: { year, month }, count } = item; // вкладена деструктуризація з _id
+    const date = moment() // стартуємо від «зараз» — день і час не важливі, format бере лише місяць і рік
+      .month(month - 1) // у moment місяці 0–11, а $month з MongoDB дає 1–12
+      .year(year)
+      .format('MMM Y'); // 'MMM' — коротка назва місяця, 'Y' — рік
+    return { date, count };
+  });
+
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
+}
+
 module.exports = {
   getAllJobs,
   getJob,
   createJob,
   updateJob,
-  deleteJob
+  deleteJob,
+  showStats,
 }
